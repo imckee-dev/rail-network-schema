@@ -1,6 +1,8 @@
 
 -- our main four
 
+-- Order must be: (Shipments must be after RailYards; Containers must be after RailYards/Shipments)
+
 CREATE TABLE RailYards (
     railyard_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     train_capacity int

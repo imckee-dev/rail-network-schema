@@ -8,6 +8,9 @@
 -- our main four
 
 -- Order must be: (Shipments must be after RailYards; Containers must be after RailYards/Shipments)
+-- (Or order doesn't matter if:)
+
+SET foreign_key_checks = 0;
 
 CREATE TABLE RailYards (
     railyard_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -63,7 +66,7 @@ CREATE TABLE container_train ( -- one train to many containers, and/or many trai
 
 -- Citation for use of AI tools
     -- Date accessed: 7/24/25
-3   -- Prompt used to generate DB info / (implicitly) write the SQL syntax
+    -- Prompt used to generate DB info / (implicitly) write the SQL syntax
         -- "Now make 5 pieces of data for each of the four main entities. Please. and use the intersection table when necessary"
     -- AI Source URL: chatgpt.com
 
@@ -103,3 +106,5 @@ INSERT INTO container_train (container_id, train_id) VALUES
 (202, 301),
 (203, 302),
 (205, 303);
+
+SET foreign_key_checks = 1;

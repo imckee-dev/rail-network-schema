@@ -1,0 +1,47 @@
+<h2>Shipments</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Description</th>
+      <th>Weight (tons)</th>
+      <th>Origin Yard</th>
+      <th>Destination Yard</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each shipments}}
+    <tr>
+      <td>{{this.shipmentID}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.weightTons}}</td>
+      <td>{{this.originYardID}}</td>
+      <td>{{this.destinationYardID}}</td>
+      <td>
+        <!-- Edit form -->
+        <form action="/shipments/edit/{{this.shipmentID}}" method="POST" style="display:inline;">
+          <input type="text" name="description" value="{{this.description}}" required size="8">
+          <input type="number" step="0.01" name="weightTons" value="{{this.weightTons}}" required size="6">
+          <input type="text" name="originYardID" value="{{this.originYardID}}" required size="6">
+          <input type="text" name="destinationYardID" value="{{this.destinationYardID}}" required size="6">
+          <button type="submit">Edit</button>
+        </form>
+        <!-- Delete form -->
+        <form action="/shipments/delete/{{this.shipmentID}}" method="POST" style="display:inline;">
+          <button type="submit" onclick="return confirm('Delete this shipment?');">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<h3>Add New Shipment</h3>
+<form action="/shipments/add" method="POST">
+  <label>Description: <input type="text" name="description" required></label><br>
+  <label>Weight (tons): <input type="number" step="0.01" name="weightTons" required></label><br>
+  <label>Origin Yard: <input type="text" name="originYardID" required></label><br>
+  <label>Destination Yard: <input type="text" name="destinationYardID" required></label><br>
+  <button type="submit">Add Shipment</button>
+</form>
+<a href="/">Back to Home</a>

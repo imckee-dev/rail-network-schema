@@ -1,0 +1,53 @@
+<h2>Trains</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Engine Type</th>
+      <th>Manufacturer</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each trains}}
+    <tr>
+      <td>{{this.trainID}}</td>
+      <td>{{this.trainName}}</td>
+      <td>{{this.engineType}}</td>
+      <td>{{this.manufacturer}}</td>
+      <td>
+        <!-- Edit form -->
+        <form action="/trains/edit/{{this.trainID}}" method="POST" style="display:inline;">
+          <input type="text" name="trainName" value="{{this.trainName}}" required size="8">
+          <select name="engineType" required>
+            <option value="diesel" {{#if (eq this.engineType 'diesel')}}selected{{/if}}>Diesel</option>
+            <option value="electric" {{#if (eq this.engineType 'electric')}}selected{{/if}}>Electric</option>
+            <option value="hybrid" {{#if (eq this.engineType 'hybrid')}}selected{{/if}}>Hybrid</option>
+          </select>
+          <input type="text" name="manufacturer" value="{{this.manufacturer}}" required size="8">
+          <button type="submit">Edit</button>
+        </form>
+        <!-- Delete form -->
+        <form action="/trains/delete/{{this.trainID}}" method="POST" style="display:inline;">
+          <button type="submit" onclick="return confirm('Delete this train?');">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<h3>Add New Train</h3>
+<form action="/trains/add" method="POST">
+  <label>Train Name: <input type="text" name="trainName" required></label><br>
+  <label>Engine Type:
+    <select name="engineType" required>
+      <option value="diesel">Diesel</option>
+      <option value="electric">Electric</option>
+      <option value="hybrid">Hybrid</option>
+    </select>
+  </label><br>
+  <label>Manufacturer: <input type="text" name="manufacturer" required></label><br>
+  <button type="submit">Add Train</button>
+</form>
+<a href="/">Back to Home</a>

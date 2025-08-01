@@ -1,0 +1,43 @@
+<h2>Containers</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Capacity (tons)</th>
+      <th>Current Rail Yard</th>
+      <th>Shipment ID</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each containers}}
+    <tr>
+      <td>{{this.containerID}}</td>
+      <td>{{this.capacityTons}}</td>
+      <td>{{this.currentRailID}}</td>
+      <td>{{this.shipmentID}}</td>
+      <td>
+        <!-- Edit form -->
+        <form action="/containers/edit/{{this.containerID}}" method="POST" style="display:inline;">
+          <input type="number" step="0.01" name="capacityTons" value="{{this.capacityTons}}" required size="6">
+          <input type="text" name="currentRailID" value="{{this.currentRailID}}" required size="8">
+          <input type="text" name="shipmentID" value="{{this.shipmentID}}" required size="4">
+          <button type="submit">Edit</button>
+        </form>
+        <!-- Delete form -->
+        <form action="/containers/delete/{{this.containerID}}" method="POST" style="display:inline;">
+          <button type="submit" onclick="return confirm('Delete this container?');">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<h3>Add New Container</h3>
+<form action="/containers/add" method="POST">
+  <label>Capacity (tons): <input type="number" step="0.01" name="capacityTons" required></label><br>
+  <label>Current Rail Yard: <input type="text" name="currentRailID" required></label><br>
+  <label>Shipment ID: <input type="text" name="shipmentID" required></label><br>
+  <button type="submit">Add Container</button>
+</form>
+<a href="/">Back to Home</a>

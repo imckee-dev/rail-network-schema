@@ -1,0 +1,35 @@
+<h2>Rail Yards</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Train Capacity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each railyards}}
+    <tr>
+      <td>{{this.yardID}}</td>
+      <td>{{this.trainCapacity}}</td>
+      <td>
+        <!-- Edit form -->
+        <form action="/railyards/edit/{{this.yardID}}" method="POST" style="display:inline;">
+          <input type="number" name="trainCapacity" value="{{this.trainCapacity}}" required size="6">
+          <button type="submit">Edit</button>
+        </form>
+        <!-- Delete form -->
+        <form action="/railyards/delete/{{this.yardID}}" method="POST" style="display:inline;">
+          <button type="submit" onclick="return confirm('Delete this rail yard?');">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+<h3>Add New Rail Yard</h3>
+<form action="/railyards/add" method="POST">
+  <label>Train Capacity: <input type="number" name="trainCapacity" required></label><br>
+  <button type="submit">Add Rail Yard</button>
+</form>
+<a href="/">Back to Home</a>

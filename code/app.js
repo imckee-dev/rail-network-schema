@@ -3,14 +3,15 @@ const path = require('path');
 const exphbs = require('express-handlebars');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 50012;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Register Handlebars with custom helpers
+// Handlebars' definitions
+
 const hbs = exphbs.create({
   extname: '.hbs',
   helpers: {
@@ -112,5 +113,5 @@ setupCrudRoutes('trains', 'trainID', [
 ]);
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://classwork.engr.oregonstate.edu:${PORT}`);
 });

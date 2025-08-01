@@ -1,3 +1,6 @@
+-- IMPORTANT: ADD A `USE cs340_your_onid_database;` Before running.
+-- USE cs340_mckeei;
+
 -- Next: Data Manipulation Language (our required queries)
 
 

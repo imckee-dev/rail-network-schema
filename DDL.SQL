@@ -30,8 +30,8 @@ CREATE TABLE Shipments (
     origin_railyard_id int,
     destination_railyard_id int,
 
-    FOREIGN KEY (origin_railyard_id) REFERENCES RailYards(railyard_id),
-    FOREIGN KEY (destination_railyard_id) REFERENCES RailYards(railyard_id)
+    FOREIGN KEY (origin_railyard_id) REFERENCES RailYards(railyard_id) ON DELETE CASCADE,
+    FOREIGN KEY (destination_railyard_id) REFERENCES RailYards(railyard_id) ON DELETE CASCADE
 );
 
 CREATE TABLE Containers (
@@ -40,8 +40,8 @@ CREATE TABLE Containers (
     current_rail_id int,
     shipment_id int,
 
-    FOREIGN KEY (current_rail_id) REFERENCES RailYards(railyard_id),
-    FOREIGN KEY (shipment_id) REFERENCES Shipments(shipment_id)
+    FOREIGN KEY (current_rail_id) REFERENCES RailYards(railyard_id) ON DELETE CASCADE,
+    FOREIGN KEY (shipment_id) REFERENCES Shipments(shipment_id) ON DELETE CASCADE
 
     -- Add constraint such that shipment_id it references weight < its capacity_tons
 
@@ -54,8 +54,8 @@ CREATE TABLE container_train ( -- one train to many containers, and/or many trai
     container_id int,
     train_id int,
 
-    FOREIGN KEY (train_id) REFERENCES Trains(train_id),
-    FOREIGN KEY (container_id) REFERENCES Containers(container_id),
+    FOREIGN KEY (train_id) REFERENCES Trains(train_id) ON DELETE CASCADE,
+    FOREIGN KEY (container_id) REFERENCES Containers(container_id) ON DELETE CASCADE,
     PRIMARY KEY (container_id, train_id)
 );
 

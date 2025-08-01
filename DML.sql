@@ -19,7 +19,7 @@ SELECT * FROM container_train;
 
 
 
-INSERT INTO Containers (capacity_tons, current_rail_id, shipment_id) VALUES 
+INSERT INTO Containers (capacity_tons, current_railyard_id, shipment_id) VALUES 
 (40.00, 103, 3);
 
 UPDATE Containers

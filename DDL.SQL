@@ -37,10 +37,10 @@ CREATE TABLE Shipments (
 CREATE TABLE Containers (
     container_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     capacity_tons decimal(6,2),
-    current_rail_id int,
+    current_railyard_id int,
     shipment_id int,
 
-    FOREIGN KEY (current_rail_id) REFERENCES RailYards(railyard_id) ON DELETE CASCADE,
+    FOREIGN KEY (current_railyard_id) REFERENCES RailYards(railyard_id) ON DELETE CASCADE,
     FOREIGN KEY (shipment_id) REFERENCES Shipments(shipment_id) ON DELETE CASCADE
 
     -- Add constraint such that shipment_id it references weight < its capacity_tons
@@ -94,7 +94,7 @@ INSERT INTO Shipments (shipment_id, description, weight_tons, origin_railyard_id
 (4, 'Books Shipment', 8.20, 103, 102),
 (5, 'Automobile Parts', 33.00, 104, 105);
 
-INSERT INTO Containers (container_id, capacity_tons, current_rail_id, shipment_id) VALUES
+INSERT INTO Containers (container_id, capacity_tons, current_railyard_id, shipment_id) VALUES
 (201, 50.00, 101, 1),
 (202, 15.00, 101, 2),
 (203, 70.00, 101, 3),

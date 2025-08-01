@@ -18,8 +18,14 @@ SELECT * FROM Containers;
 SELECT * FROM container_train;
 
 
--- TODO: INSERT, UPDATE, and DELETE query
-    -- [DELETE record from container_train intersection table w/o compromising (no data anomaly)]
 
+INSERT INTO Containers (capacity_tons, current_rail_id, shipment_id) VALUES 
+(40.00, 103, 3);
 
+UPDATE Containers
+SET current_railyard_id = 105
+WHERE container_id = 203;
+
+DELETE FROM container_train
+WHERE container_id = 202 AND train_id = 301;
 

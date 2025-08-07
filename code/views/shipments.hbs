@@ -1,47 +1,76 @@
 <h2>Shipments</h2>
-<table border="1">
+<p><a href="/">← Back to Home</a></p>
+
+<!-- Add New Shipment Form -->
+<div style="background-color: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px;">
+  <h3>Add New Shipment</h3>
+  <form action="/shipments/add" method="POST" style="display: flex; gap: 10px; align-items: end; flex-wrap: wrap;">
+    <div>
+      <label>Description:<br>
+        <input type="text" name="description" required style="padding: 5px; width: 150px;">
+      </label>
+    </div>
+    <div>
+      <label>Weight (tons):<br>
+        <input type="number" step="0.01" name="weight_tons" required style="padding: 5px; width: 100px;">
+      </label>
+    </div>
+    <div>
+      <label>Origin Railyard ID:<br>
+        <input type="number" name="origin_railyard_id" required style="padding: 5px; width: 80px;" placeholder="e.g. 101">
+      </label>
+    </div>
+    <div>
+      <label>Destination Railyard ID:<br>
+        <input type="number" name="destination_railyard_id" required style="padding: 5px; width: 80px;" placeholder="e.g. 102">
+      </label>
+    </div>
+    <button type="submit" style="padding: 5px 15px; background-color: #28a745; color: white; border: none; border-radius: 3px;">Add Shipment</button>
+  </form>
+</div>
+
+<table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
-    <tr>
-      <th>ID</th>
-      <th>Description</th>
-      <th>Weight (tons)</th>
-      <th>Origin Yard</th>
-      <th>Destination Yard</th>
-      <th>Actions</th>
+    <tr style="background-color: #f2f2f2;">
+      <th style="padding: 8px;">ID</th>
+      <th style="padding: 8px;">Description</th>
+      <th style="padding: 8px;">Weight (tons)</th>
+      <th style="padding: 8px;">Origin Yard</th>
+      <th style="padding: 8px;">Destination Yard</th>
+      <th style="padding: 8px;">Actions</th>
     </tr>
   </thead>
   <tbody>
     {{#each shipments}}
     <tr>
-      <td>{{this.shipmentID}}</td>
-      <td>{{this.description}}</td>
-      <td>{{this.weightTons}}</td>
-      <td>{{this.originYardID}}</td>
-      <td>{{this.destinationYardID}}</td>
-      <td>
-        <!-- Edit form -->
-        <form action="/shipments/edit/{{this.shipmentID}}" method="POST" style="display:inline;">
-          <input type="text" name="description" value="{{this.description}}" required size="8">
-          <input type="number" step="0.01" name="weightTons" value="{{this.weightTons}}" required size="6">
-          <input type="text" name="originYardID" value="{{this.originYardID}}" required size="6">
-          <input type="text" name="destinationYardID" value="{{this.destinationYardID}}" required size="6">
-          <button type="submit">Edit</button>
-        </form>
-        <!-- Delete form -->
-        <form action="/shipments/delete/{{this.shipmentID}}" method="POST" style="display:inline;">
-          <button type="submit" onclick="return confirm('Delete this shipment?');">Delete</button>
+      <td style="padding: 8px;">{{this.shipment_id}}</td>
+      <form action="/shipments/edit/{{this.shipment_id}}" method="POST" style="display: contents;">
+        <td style="padding: 8px;">
+          <input type="text" name="description" value="{{this.description}}" required style="width: 120px; padding: 2px;">
+        </td>
+        <td style="padding: 8px;">
+          <input type="number" step="0.01" name="weight_tons" value="{{this.weight_tons}}" required style="width: 80px; padding: 2px;">
+        </td>
+        <td style="padding: 8px;">
+          <input type="number" name="origin_railyard_id" value="{{this.origin_railyard_id}}" required style="width: 60px; padding: 2px;">
+        </td>
+        <td style="padding: 8px;">
+          <input type="number" name="destination_railyard_id" value="{{this.destination_railyard_id}}" required style="width: 60px; padding: 2px;">
+        </td>
+        <td style="padding: 8px;">
+          <button type="submit" style="padding: 3px 8px; background-color: #007bff; color: white; border: none; border-radius: 3px; margin-right: 5px;">Update</button>
+      </form>
+        <form action="/shipments/delete/{{this.shipment_id}}" method="POST" style="display: inline;">
+          <button type="submit" onclick="return confirm('Delete this shipment? This will also delete related containers.');" style="padding: 3px 8px; background-color: #dc3545; color: white; border: none; border-radius: 3px;">Delete</button>
         </form>
       </td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="6" style="padding: 8px; text-align: center; font-style: italic;">No shipments found. Use RESET to restore sample data.</td>
     </tr>
     {{/each}}
   </tbody>
 </table>
-<h3>Add New Shipment</h3>
-<form action="/shipments/add" method="POST">
-  <label>Description: <input type="text" name="description" required></label><br>
-  <label>Weight (tons): <input type="number" step="0.01" name="weightTons" required></label><br>
-  <label>Origin Yard: <input type="text" name="originYardID" required></label><br>
-  <label>Destination Yard: <input type="text" name="destinationYardID" required></label><br>
-  <button type="submit">Add Shipment</button>
-</form>
-<a href="/">Back to Home</a>
+
+<p style="margin-top: 20px;"><em>Note: You can now add, edit, and delete shipments directly from this page! Available Railyard IDs: 101, 102, 103, 104, 105</em></p>

@@ -1,53 +1,66 @@
 <h2>Trains</h2>
-<table border="1">
+<p><a href="/">← Back to Home</a></p>
+
+<!-- Add New Train Form -->
+<div style="background-color: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px;">
+  <h3>Add New Train</h3>
+  <form action="/trains/add" method="POST" style="display: flex; gap: 10px; align-items: end;">
+    <div>
+      <label>Train Name:<br>
+        <input type="text" name="train_name" required style="padding: 5px;">
+      </label>
+    </div>
+    <div>
+      <label>Engine Type:<br>
+        <select name="engine_type" required style="padding: 5px;">
+          <option value="diesel">Diesel</option>
+          <option value="electric">Electric</option>
+          <option value="hybrid">Hybrid</option>
+        </select>
+      </label>
+    </div>
+    <button type="submit" style="padding: 5px 15px; background-color: #28a745; color: white; border: none; border-radius: 3px;">Add Train</button>
+  </form>
+</div>
+
+<table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Engine Type</th>
-      <th>Manufacturer</th>
-      <th>Actions</th>
+    <tr style="background-color: #f2f2f2;">
+      <th style="padding: 8px;">Train ID</th>
+      <th style="padding: 8px;">Train Name</th>
+      <th style="padding: 8px;">Engine Type</th>
+      <th style="padding: 8px;">Actions</th>
     </tr>
   </thead>
   <tbody>
     {{#each trains}}
     <tr>
-      <td>{{this.trainID}}</td>
-      <td>{{this.trainName}}</td>
-      <td>{{this.engineType}}</td>
-      <td>{{this.manufacturer}}</td>
-      <td>
-        <!-- Edit form -->
-        <form action="/trains/edit/{{this.trainID}}" method="POST" style="display:inline;">
-          <input type="text" name="trainName" value="{{this.trainName}}" required size="8">
-          <select name="engineType" required>
-            <option value="diesel" {{#if (eq this.engineType 'diesel')}}selected{{/if}}>Diesel</option>
-            <option value="electric" {{#if (eq this.engineType 'electric')}}selected{{/if}}>Electric</option>
-            <option value="hybrid" {{#if (eq this.engineType 'hybrid')}}selected{{/if}}>Hybrid</option>
+      <td style="padding: 8px;">{{this.train_id}}</td>
+      <td style="padding: 8px;">
+        <form action="/trains/edit/{{this.train_id}}" method="POST" style="display: inline;">
+          <input type="text" name="train_name" value="{{this.train_name}}" required style="width: 120px; padding: 2px;">
+        </td>
+      <td style="padding: 8px;">
+          <select name="engine_type" required style="padding: 2px;">
+            <option value="diesel" {{#if (eq this.engine_type 'diesel')}}selected{{/if}}>Diesel</option>
+            <option value="electric" {{#if (eq this.engine_type 'electric')}}selected{{/if}}>Electric</option>
+            <option value="hybrid" {{#if (eq this.engine_type 'hybrid')}}selected{{/if}}>Hybrid</option>
           </select>
-          <input type="text" name="manufacturer" value="{{this.manufacturer}}" required size="8">
-          <button type="submit">Edit</button>
+        </td>
+      <td style="padding: 8px;">
+          <button type="submit" style="padding: 3px 8px; background-color: #007bff; color: white; border: none; border-radius: 3px; margin-right: 5px;">Update</button>
         </form>
-        <!-- Delete form -->
-        <form action="/trains/delete/{{this.trainID}}" method="POST" style="display:inline;">
-          <button type="submit" onclick="return confirm('Delete this train?');">Delete</button>
+        <form action="/trains/delete/{{this.train_id}}" method="POST" style="display: inline;">
+          <button type="submit" onclick="return confirm('Delete this train? This will also remove any container assignments.');" style="padding: 3px 8px; background-color: #dc3545; color: white; border: none; border-radius: 3px;">Delete</button>
         </form>
       </td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="4" style="padding: 8px; text-align: center; font-style: italic;">No trains found. Use RESET to restore sample data.</td>
     </tr>
     {{/each}}
   </tbody>
 </table>
-<h3>Add New Train</h3>
-<form action="/trains/add" method="POST">
-  <label>Train Name: <input type="text" name="trainName" required></label><br>
-  <label>Engine Type:
-    <select name="engineType" required>
-      <option value="diesel">Diesel</option>
-      <option value="electric">Electric</option>
-      <option value="hybrid">Hybrid</option>
-    </select>
-  </label><br>
-  <label>Manufacturer: <input type="text" name="manufacturer" required></label><br>
-  <button type="submit">Add Train</button>
-</form>
-<a href="/">Back to Home</a>
+
+<p style="margin-top: 20px;"><em>Note: You can now add, edit, and delete trains directly from this page!</em></p>

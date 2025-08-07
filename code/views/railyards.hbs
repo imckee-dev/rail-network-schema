@@ -1,35 +1,49 @@
 <h2>Rail Yards</h2>
-<table border="1">
+<p><a href="/">← Back to Home</a></p>
+
+<!-- Add New Railyard Form -->
+<div style="background-color: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px;">
+  <h3>Add New Rail Yard</h3>
+  <form action="/railyards/add" method="POST" style="display: flex; gap: 10px; align-items: end;">
+    <div>
+      <label>Train Capacity:<br>
+        <input type="number" name="train_capacity" required style="padding: 5px; width: 100px;" min="1">
+      </label>
+    </div>
+    <button type="submit" style="padding: 5px 15px; background-color: #28a745; color: white; border: none; border-radius: 3px;">Add Rail Yard</button>
+  </form>
+</div>
+
+<table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
-    <tr>
-      <th>ID</th>
-      <th>Train Capacity</th>
-      <th>Actions</th>
+    <tr style="background-color: #f2f2f2;">
+      <th style="padding: 8px;">Railyard ID</th>
+      <th style="padding: 8px;">Train Capacity</th>
+      <th style="padding: 8px;">Actions</th>
     </tr>
   </thead>
   <tbody>
     {{#each railyards}}
     <tr>
-      <td>{{this.yardID}}</td>
-      <td>{{this.trainCapacity}}</td>
-      <td>
-        <!-- Edit form -->
-        <form action="/railyards/edit/{{this.yardID}}" method="POST" style="display:inline;">
-          <input type="number" name="trainCapacity" value="{{this.trainCapacity}}" required size="6">
-          <button type="submit">Edit</button>
+      <td style="padding: 8px;">{{this.railyard_id}}</td>
+      <td style="padding: 8px;">
+        <form action="/railyards/edit/{{this.railyard_id}}" method="POST" style="display: inline;">
+          <input type="number" name="train_capacity" value="{{this.train_capacity}}" required style="width: 80px; padding: 2px;" min="1">
+        </td>
+      <td style="padding: 8px;">
+          <button type="submit" style="padding: 3px 8px; background-color: #007bff; color: white; border: none; border-radius: 3px; margin-right: 5px;">Update</button>
         </form>
-        <!-- Delete form -->
-        <form action="/railyards/delete/{{this.yardID}}" method="POST" style="display:inline;">
-          <button type="submit" onclick="return confirm('Delete this rail yard?');">Delete</button>
+        <form action="/railyards/delete/{{this.railyard_id}}" method="POST" style="display: inline;">
+          <button type="submit" onclick="return confirm('Delete this railyard? Make sure no shipments or containers reference it first.');" style="padding: 3px 8px; background-color: #dc3545; color: white; border: none; border-radius: 3px;">Delete</button>
         </form>
       </td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="3" style="padding: 8px; text-align: center; font-style: italic;">No railyards found. Use RESET to restore sample data.</td>
     </tr>
     {{/each}}
   </tbody>
 </table>
-<h3>Add New Rail Yard</h3>
-<form action="/railyards/add" method="POST">
-  <label>Train Capacity: <input type="number" name="trainCapacity" required></label><br>
-  <button type="submit">Add Rail Yard</button>
-</form>
-<a href="/">Back to Home</a>
+
+<p style="margin-top: 20px;"><em>Note: You can now add, edit, and delete railyards directly from this page! Be careful when deleting - make sure no shipments or containers reference the railyard first.</em></p>

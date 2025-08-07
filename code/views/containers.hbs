@@ -1,43 +1,69 @@
 <h2>Containers</h2>
-<table border="1">
+<p><a href="/">← Back to Home</a></p>
+
+<!-- Add New Container Form -->
+<div style="background-color: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px;">
+  <h3>Add New Container</h3>
+  <form action="/containers/add" method="POST" style="display: flex; gap: 10px; align-items: end;">
+    <div>
+      <label>Capacity (tons):<br>
+        <input type="number" step="0.01" name="capacity_tons" required style="padding: 5px; width: 100px;">
+      </label>
+    </div>
+    <div>
+      <label>Current Railyard ID:<br>
+        <input type="number" name="current_rail_id" required style="padding: 5px; width: 80px;" placeholder="e.g. 101">
+      </label>
+    </div>
+    <div>
+      <label>Shipment ID:<br>
+        <input type="number" name="shipment_id" required style="padding: 5px; width: 80px;" placeholder="e.g. 1">
+      </label>
+    </div>
+    <button type="submit" style="padding: 5px 15px; background-color: #28a745; color: white; border: none; border-radius: 3px;">Add Container</button>
+  </form>
+</div>
+
+<table border="1" style="border-collapse: collapse; width: 100%;">
   <thead>
-    <tr>
-      <th>ID</th>
-      <th>Capacity (tons)</th>
-      <th>Current Rail Yard</th>
-      <th>Shipment ID</th>
-      <th>Actions</th>
+    <tr style="background-color: #f2f2f2;">
+      <th style="padding: 8px;">Container ID</th>
+      <th style="padding: 8px;">Capacity (tons)</th>
+      <th style="padding: 8px;">Current Railyard</th>
+      <th style="padding: 8px;">Shipment ID</th>
+      <th style="padding: 8px;">Shipment Description</th>
+      <th style="padding: 8px;">Actions</th>
     </tr>
   </thead>
   <tbody>
     {{#each containers}}
     <tr>
-      <td>{{this.containerID}}</td>
-      <td>{{this.capacityTons}}</td>
-      <td>{{this.currentRailID}}</td>
-      <td>{{this.shipmentID}}</td>
-      <td>
-        <!-- Edit form -->
-        <form action="/containers/edit/{{this.containerID}}" method="POST" style="display:inline;">
-          <input type="number" step="0.01" name="capacityTons" value="{{this.capacityTons}}" required size="6">
-          <input type="text" name="currentRailID" value="{{this.currentRailID}}" required size="8">
-          <input type="text" name="shipmentID" value="{{this.shipmentID}}" required size="4">
-          <button type="submit">Edit</button>
-        </form>
-        <!-- Delete form -->
-        <form action="/containers/delete/{{this.containerID}}" method="POST" style="display:inline;">
-          <button type="submit" onclick="return confirm('Delete this container?');">Delete</button>
+      <td style="padding: 8px;">{{this.container_id}}</td>
+      <form action="/containers/edit/{{this.container_id}}" method="POST" style="display: contents;">
+        <td style="padding: 8px;">
+          <input type="number" step="0.01" name="capacity_tons" value="{{this.capacity_tons}}" required style="width: 80px; padding: 2px;">
+        </td>
+        <td style="padding: 8px;">
+          <input type="number" name="current_rail_id" value="{{this.current_rail_id}}" required style="width: 60px; padding: 2px;">
+        </td>
+        <td style="padding: 8px;">
+          <input type="number" name="shipment_id" value="{{this.shipment_id}}" required style="width: 60px; padding: 2px;">
+        </td>
+        <td style="padding: 8px;">{{this.shipment_description}}</td>
+        <td style="padding: 8px;">
+          <button type="submit" style="padding: 3px 8px; background-color: #007bff; color: white; border: none; border-radius: 3px; margin-right: 5px;">Update</button>
+      </form>
+        <form action="/containers/delete/{{this.container_id}}" method="POST" style="display: inline;">
+          <button type="submit" onclick="return confirm('Delete this container? This will also remove any train assignments.');" style="padding: 3px 8px; background-color: #dc3545; color: white; border: none; border-radius: 3px;">Delete</button>
         </form>
       </td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="6" style="padding: 8px; text-align: center; font-style: italic;">No containers found. Use RESET to restore sample data.</td>
     </tr>
     {{/each}}
   </tbody>
 </table>
-<h3>Add New Container</h3>
-<form action="/containers/add" method="POST">
-  <label>Capacity (tons): <input type="number" step="0.01" name="capacityTons" required></label><br>
-  <label>Current Rail Yard: <input type="text" name="currentRailID" required></label><br>
-  <label>Shipment ID: <input type="text" name="shipmentID" required></label><br>
-  <button type="submit">Add Container</button>
-</form>
-<a href="/">Back to Home</a>
+
+<p style="margin-top: 20px;"><em>Note: You can now add, edit, and delete containers directly from this page! Available Railyard IDs: 101, 102, 103, 104, 105</em></p>

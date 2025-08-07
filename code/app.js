@@ -11,11 +11,11 @@ const db = require('./db-connector');
 const app = express();
 const PORT = 9124; // Choose a port between 1024-65535
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Register Handlebars with custom helpers
 const hbs = exphbs.create({
   extname: '.hbs',
   helpers: {
@@ -236,6 +236,8 @@ app.post('/railyards/delete/:id', handleDbAction(async (req, res) => {
     LISTENER
 */
 app.listen(PORT, () => {
+
   console.log(`Server running on http://localhost:${PORT}`);
   console.log(`Access from ENGR server: http://classwork.engr.oregonstate.edu:${PORT}`);
+
 });

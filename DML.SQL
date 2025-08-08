@@ -27,7 +27,7 @@ ORDER BY s.shipment_id;
 SELECT 
     c.container_id,
     c.capacity_tons,
-    CONCAT('Yard ', c.current_rail_id) as current_location,
+    CONCAT('Yard ', c.current_railyard_id) as current_location,
     c.shipment_id,
     s.description as shipment_description
 FROM Containers c
@@ -89,7 +89,11 @@ WHERE container_id = 205;
 -- DELETE Operations
 
 -- Delete RailYard (must handle foreign key constraints)
-DELETE FROM RailYards WHERE railyard_id = 103;
+
+-- For 103 update: Containers 204 to current_railyard_id to something else (102?)
+    -- And Shipments 2 destination and Shipments 4 current to something else (102? 104?)
+ 
+-- DELETE FROM RailYards WHERE railyard_id = 103;
 
 -- Delete Train
 DELETE FROM Trains WHERE train_id = 304;

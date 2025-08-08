@@ -9,7 +9,7 @@ const exphbs = require('express-handlebars');
 const db = require('./db-connector');
 
 const app = express();
-const PORT = 9124; // Choose a port between 1024-65535
+const PORT = 50013; // Choose a port between 1024-65535
 
 
 app.use(express.urlencoded({ extended: true }));

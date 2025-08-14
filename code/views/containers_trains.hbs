@@ -1,0 +1,87 @@
+<!-- comment
+
+Copied from trains.hbs
+
+to fix:
+"add new container_train form"'s details
+
+
+-->
+
+<h2>ContainersTrains - Interaction of Containers and Trains</h2>
+<p><a href="/">← Back to Home</a></p>
+
+<h3>Navigation</h3>
+<ul>
+  <p><a href="/shipments">Shipments</a> - View, add, edit, and delete cargo shipments and their routes</p>
+  <p><a href="/containers">Containers</a> - View, add, edit, and delete containers and their assignments</p>
+  <p><a href="/railyards">Rail Yards</a> - View, add, edit, and delete rail yard locations and capacities</p>
+  <p><a href="/trains">Trains</a> - View, add, edit, and delete train information and specifications</p>
+  <p><a href="/containers_trains">ContainersTrains</a> - View, add, edit, and delete container-train connection specifications</p>
+</ul>
+
+<!-- Add New container_train Form -->
+<div style="background-color: #f8f9fa; padding: 15px; margin: 15px 0; border-radius: 5px;">
+  <h3>Add New ContainersTrains connection</h3>
+  <form action="/containers_trains/add" method="POST" style="display: flex; gap: 10px; align-items: end;">
+    <div>
+      <label>Train Name:<br>
+        <input type="text" name="train_name" required style="padding: 5px;">
+      </label>
+    </div>
+    <div>
+      <label>Engine Type:<br>
+        <select name="engine_type" required style="padding: 5px;">
+          <option value="diesel">Diesel</option>
+          <option value="electric">Electric</option>
+          <option value="hybrid">Hybrid</option>
+        </select>
+      </label>
+    </div>
+    <button type="submit" style="padding: 5px 15px; background-color: #28a745; color: white; border: none; border-radius: 3px;">Add Train</button>
+  </form>
+</div>
+
+<table border="1" style="border-collapse: collapse; width: 100%;">
+  <thead>
+    <tr style="background-color: #f2f2f2;">
+      <th style="padding: 8px;">Container ID</th>
+      <th style="padding: 8px;">Train ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each containers_trains}}
+    <tr>
+      <td style="padding: 8px;">{{this.container_id}}</td>
+      <td style="padding: 8px;">
+        <form action="/containers_trains/edit/{{this.container_id}}" method="POST" style="display: inline;">
+          <input type="text" name="train_name" value="{{this.train_name}}" required style="width: 120px; padding: 2px;">
+        </td>
+
+      <td style="padding: 8px;">{{this.train_id}}</td>
+      <td style="padding: 8px;">
+        <form action="/containers_trains/edit/{{this.train_id}}" method="POST" style="display: inline;">
+          <input type="text" name="train_name" value="{{this.train_name}}" required style="width: 120px; padding: 2px;">
+        </td>
+
+
+
+        
+
+      <td style="padding: 8px;">
+          <button type="submit" style="padding: 3px 8px; background-color: #007bff; color: white; border: none; border-radius: 3px; margin-right: 5px;">Update</button>
+        </form>
+        <form action="/containers_trains/delete/{{this.train_id}}" method="POST" style="display: inline;">
+          <button type="submit" onclick="return confirm('Delete this train? This will also remove any container assignments.');" style="padding: 3px 8px; background-color: #dc3545; color: white; border: none; border-radius: 3px;">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{else}}
+    <tr>
+      <td colspan="4" style="padding: 8px; text-align: center; font-style: italic;">No trains found. Use RESET to restore sample data.</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<p style="margin-top: 20px;"><em>Note: You can now add, edit, and delete trains directly from this page!</em></p>

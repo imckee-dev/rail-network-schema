@@ -1,3 +1,9 @@
+//needed for container-train:
+
+//app.js route
+//container-train.hbs mod
+// the rest of the .hbs mod and add the link
+
 /*
     SETUP
 */
@@ -9,7 +15,8 @@ const exphbs = require('express-handlebars');
 const db = require('./db-connector');
 
 const app = express();
-const PORT = 50013; // Choose a port between 1024-65535
+const PORT = 50015; // Choose a port between 1024-65535
+// port 50015 for part 5 ; 50013 was for p4, 50012 p3, ... ...
 
 
 app.use(express.urlencoded({ extended: true }));
@@ -132,6 +139,18 @@ app.get('/railyards', async (req, res) => {
   } catch (error) {
     console.error("Error fetching railyards:", error);
     res.status(500).send("An error occurred while fetching railyards data.");
+  }
+});
+
+// Page for container-train
+app.get('/containers_trains', async (req, res) => {
+  try {
+    const query = 'SELECT container_id, train_id FROM container_train ORDER BY container_id;';
+    const [containers_trains] = await db.query(query);
+    res.render('containers_trains', { containers_trains: containers_trains });
+  } catch (error) {
+    console.error("Error fetching containers_trains:", error);
+    res.status(500).send("An error occurred while fetching containers_trains data.");
   }
 });
 

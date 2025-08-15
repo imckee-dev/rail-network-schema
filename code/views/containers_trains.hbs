@@ -1,9 +1,10 @@
 <!-- comment
 
 Copied from trains.hbs
+Largely working for rendering the values
 
 to fix:
-"add new container_train form"'s details
+"add new container_train form" bug
 
 
 -->
@@ -25,20 +26,16 @@ to fix:
   <h3>Add New ContainersTrains connection</h3>
   <form action="/containers_trains/add" method="POST" style="display: flex; gap: 10px; align-items: end;">
     <div>
-      <label>Train Name:<br>
-        <input type="text" name="train_name" required style="padding: 5px;">
+      <label>Container ID:<br>
+        <input type="number" name="container_id" required style="padding: 5px;">
       </label>
     </div>
     <div>
-      <label>Engine Type:<br>
-        <select name="engine_type" required style="padding: 5px;">
-          <option value="diesel">Diesel</option>
-          <option value="electric">Electric</option>
-          <option value="hybrid">Hybrid</option>
-        </select>
+      <label>Train ID:<br>
+        <input type="number" name="train_id" required style="padding: 5px;">
       </label>
     </div>
-    <button type="submit" style="padding: 5px 15px; background-color: #28a745; color: white; border: none; border-radius: 3px;">Add Train</button>
+    <button type="submit" style="padding: 5px 15px; background-color: #28a745; color: white; border: none; border-radius: 3px;">Add Containers_Trains Connection</button>
   </form>
 </div>
 
@@ -53,35 +50,24 @@ to fix:
     {{#each containers_trains}}
     <tr>
       <td style="padding: 8px;">{{this.container_id}}</td>
-      <td style="padding: 8px;">
-        <form action="/containers_trains/edit/{{this.container_id}}" method="POST" style="display: inline;">
-          <input type="text" name="train_name" value="{{this.train_name}}" required style="width: 120px; padding: 2px;">
-        </td>
-
       <td style="padding: 8px;">{{this.train_id}}</td>
-      <td style="padding: 8px;">
-        <form action="/containers_trains/edit/{{this.train_id}}" method="POST" style="display: inline;">
-          <input type="text" name="train_name" value="{{this.train_name}}" required style="width: 120px; padding: 2px;">
-        </td>
-
-
 
         
 
       <td style="padding: 8px;">
           <button type="submit" style="padding: 3px 8px; background-color: #007bff; color: white; border: none; border-radius: 3px; margin-right: 5px;">Update</button>
         </form>
-        <form action="/containers_trains/delete/{{this.train_id}}" method="POST" style="display: inline;">
-          <button type="submit" onclick="return confirm('Delete this train? This will also remove any container assignments.');" style="padding: 3px 8px; background-color: #dc3545; color: white; border: none; border-radius: 3px;">Delete</button>
+        <form action="/containers_trains/delete/{{this.container_id}}/{{this.train_id}}" method="POST" style="display: inline;">
+          <button type="submit" onclick="return confirm('Delete this container-train? This will also remove any container assignments.');" style="padding: 3px 8px; background-color: #dc3545; color: white; border: none; border-radius: 3px;">Delete</button>
         </form>
       </td>
     </tr>
     {{else}}
     <tr>
-      <td colspan="4" style="padding: 8px; text-align: center; font-style: italic;">No trains found. Use RESET to restore sample data.</td>
+      <td colspan="4" style="padding: 8px; text-align: center; font-style: italic;">No container-train relationships found. Use RESET to restore sample data.</td>
     </tr>
     {{/each}}
   </tbody>
 </table>
 
-<p style="margin-top: 20px;"><em>Note: You can now add, edit, and delete trains directly from this page!</em></p>
+<p style="margin-top: 20px;"><em>Note: You can now add, edit, and delete container-train relationships directly from this page!</em></p>

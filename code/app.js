@@ -262,8 +262,10 @@ app.post('/containers_trains/add', handleDbAction(async (req, res) => {
 
 app.post('/containers_trains/edit/:container_id/:train_id', handleDbAction(async (req, res) => {
   const { new_container_id, new_train_id } = req.body;
-  const train_id = req.params.id;
-  await db.query('UPDATE container_train SET train_name = ?, engine_type = ? WHERE container_id = ? AND train_id = ?', [train_name, engine_type, train_id]);
+  const container_id = req.params.container_id;
+  const train_id = req.params.train_id;
+
+  await db.query('UPDATE container_train SET container_id = ?, train_id = ? WHERE container_id = ? AND train_id = ?', [new_container_id, new_train_id, container_id, train_id]);
   res.redirect('/containers_trains');
 }, "Error updating containers_trains:"));
 

@@ -9,7 +9,7 @@ to fix:
 
 -->
 
-<h2>ContainersTrains - Interaction of Containers and Trains</h2>
+<h2>Container-Train - Relationship between Containers and Trains</h2>
 <p><a href="/">← Back to Home</a></p>
 
 <h3>Navigation</h3>
@@ -30,6 +30,8 @@ to fix:
         <input type="number" name="container_id" required style="padding: 5px;">
       </label>
     </div>
+
+
     <div>
       <label>Train ID:<br>
         <input type="number" name="train_id" required style="padding: 5px;">
@@ -48,12 +50,18 @@ to fix:
   </thead>
   <tbody>
     {{#each containers_trains}}
+    <form action="/containers_trains/edit/{{this.container_id}}/{{this.train_id}}" method="POST" style="display: inline;">
     <tr>
-      <td style="padding: 8px;">{{this.container_id}}</td>
-      <td style="padding: 8px;">{{this.train_id}}</td>
 
-        
+      <td style="padding: 8px;">
+          <input type="number" name="new_container_id" value="{{this.container_id}}" required style="width: 80px; padding: 2px;" min="1">
+      </td>
 
+      <td style="padding: 8px;">
+          <input type="number" name="new_train_id" value="{{this.train_id}}" required style="width: 80px; padding: 2px;" min="1">
+      </td>
+      
+      
       <td style="padding: 8px;">
           <button type="submit" style="padding: 3px 8px; background-color: #007bff; color: white; border: none; border-radius: 3px; margin-right: 5px;">Update</button>
         </form>
@@ -62,6 +70,7 @@ to fix:
         </form>
       </td>
     </tr>
+    </form>
     {{else}}
     <tr>
       <td colspan="4" style="padding: 8px; text-align: center; font-style: italic;">No container-train relationships found. Use RESET to restore sample data.</td>
